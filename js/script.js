@@ -71,7 +71,7 @@ window.onload = () => {
         firstPlatform.classList.remove("support")
         platforms.shift();
         console.log(platforms)
-        let newPlatform = new Platform(600);
+        let newPlatform = new Platform(550);
         platforms.push(newPlatform);
       }
     }) 
