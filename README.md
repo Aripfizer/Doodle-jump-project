@@ -11,9 +11,9 @@
     
     The game end when the ball touch down, in other words by entering the red area.
     
-    ![End Game](https://user-images.githubusercontent.com/71994720/231703208-8fb21746-919d-43e8-82e8-563af3b0a61d.png)
-    
-    ![Start Game](https://user-images.githubusercontent.com/71994720/231703226-c387e49a-58d5-4de2-82e0-17e523d7173b.PNG)
+![Start Game](https://user-images.githubusercontent.com/71994720/231703494-04264366-e089-4d7b-afff-dca493aca1d9.PNG)
+
+![End Game](https://user-images.githubusercontent.com/71994720/231703561-fd23fa52-cbe1-41e6-9836-3ff3b25ef8ae.png)
 
     
 #### Good game 😅✅
