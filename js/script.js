@@ -15,7 +15,10 @@ window.onload = () => {
   let isGoingRight = false;
   let leftTimerId;
   let rightTimerId;
-
+  let timer = 0;
+  let score = 0;
+  let timerId;
+  let scoreId
 
  const createDoodler = () => {
   console.log("createDoodler")
@@ -62,6 +65,15 @@ window.onload = () => {
       platform.bottom -= 4;
       let visual = platform.visual;
       visual.style.bottom = platform.bottom + 'px';
+      if(platform.bottom < 10)
+      {
+        let firstPlatform = platforms[0].visual;
+        firstPlatform.classList.remove("support")
+        platforms.shift();
+        console.log(platforms)
+        let newPlatform = new Platform(600);
+        platforms.push(newPlatform);
+      }
     }) 
   }
  }
@@ -73,7 +85,7 @@ window.onload = () => {
   clearInterval(downTimerId);
   isJumping = true;
   upTimerId = setInterval(() => {
-    doodlerBottomSpace += 20;
+    doodlerBottomSpace += 10;
     doodler.style.bottom = doodlerBottomSpace + 'px';
     if(doodlerBottomSpace >= startPoint + 200)
     {
@@ -114,20 +126,33 @@ window.onload = () => {
 
  const gameOver = () => { 
    console.log("game over")
+   isGameOver = true;
+   while(gameWindow.firstChild)
+   {
+    gameWindow.removeChild(gameWindow.firstChild)
+   }
+
+   let data = document.createElement('div');
+   data.innerHTML = "Game Over"
+   data.classList.add('info')
+
+   gameWindow.appendChild(data);
+
    clearInterval(upTimerId);
    clearInterval(downTimerId);
-  isGameOver = true;
+   clearInterval(leftTimerId);
+   clearInterval(rightTimerId);
+   clearInterval(timerId);
+   clearInterval(scoreId);
  }
 
  const control = (e) => {
   if (e.key === "ArrowUp") {
-    throwTheBallUp();
+    moveStrainght();
   } else if (e.key === "ArrowRight") {
     moveRight();
-    console.log("Touche de droite enfoncée");
   } else if (e.key === "ArrowLeft") {
     moveLeft();
-    console.log("Touche de gauche enfoncée");
   }
 
  }
@@ -159,7 +184,13 @@ window.onload = () => {
   }, 30);
  }
 
+ const moveStrainght = () => {
+  isGoingLeft = false;
+  isGoingRight = false;
+  clearInterval(rightTimerId);
+  clearInterval(leftTimerId);
 
+ }
 
  const start = () => {
   if(!isGameOver)
@@ -169,8 +200,34 @@ window.onload = () => {
     setInterval(movePlatforms, 30);
     jump();
     document.addEventListener("keydown", control);
+    document.querySelector("#timer").textContent = timer + " s";
+    document.querySelector("#score").textContent = score + " point";
+    
+    timerId = setInterval(() => {
+      const ball = document.querySelector(".ball");
+      if(ball)
+      {
+        timer++;
+        document.querySelector("#timer").textContent = timer + " s";
 
+      }
+  }, 1000);
 
+  scoreId = setInterval(() => {
+    const ball = document.querySelector(".ball");
+    if(ball)
+    {
+      score++;
+      let text = "";
+      if (score < 2) {
+        text = " point";
+      } else {
+        text = " points";
+      }
+
+      document.querySelector("#score").textContent = score + text;
+    }
+    }, 500);
   }
  }
 
